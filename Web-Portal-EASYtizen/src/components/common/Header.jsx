@@ -159,7 +159,7 @@ const Header = ({ title, user }) => {
 
   // Get the barangay logo based on user's barangay
   const getProfileLogo = () => {
-    if (!userData.barangayName) return defaultAvatar;
+    if (!userData || !userData.barangayName) return defaultAvatar;
     return getBarangayLogo(userData.barangayName);
   };
 
