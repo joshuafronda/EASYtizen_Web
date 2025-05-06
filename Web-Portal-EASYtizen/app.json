@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "1f83d5a5-bf68-4851-a286-1b1ee36bbd7e"
+      }
+    },
+    "android": {
+      "package": "com.devjoshuafronda.vitereactadmin"
+    }
+  }
+}
