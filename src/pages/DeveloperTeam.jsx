@@ -115,9 +115,10 @@ const DeveloperTeam = () => {
                 <p className="text-gray-600 text-lg leading-relaxed">
                   The traditional manual process of managing barangay records and processing document requests is outdated, 
                   time-consuming, and error-prone, often requiring residents to physically visit offices and endure long wait times. 
-                  To solve these inefficiencies, researchers developed a comprehensive web-based system and mobile application that digitizes 
+                  To solve these inefficiencies, I developed a comprehensive web-based system and mobile application that digitizes 
                   and streamlines document requests. Key features include QR code-enabled document retrieval, real-time issue reporting, 
-                  and online request submission, providing a faster, more accessible, and user-friendly experience for both residents and barangay officials.
+                  and online request submission, providing a faster, more accessible, and user-friendly experience for both residents and 
+                  barangay officials.
                 </p>
               </div>
             </motion.div>
