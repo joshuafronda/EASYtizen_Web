@@ -1,18 +1,27 @@
-import React, { useState } from 'react';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebaseConfig';
 import { motion } from 'framer-motion';
 import logo from '../components/common/img/logo.jpg';
 
-function AdminLogin({ onAuthSuccess }) {
+function AdminLogin({ onAuthSuccess, initialError }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Set initial error if provided
+  useEffect(() => {
+    if (initialError) {
+      setError(initialError);
+    }
+  }, [initialError]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true);
 
     try {
       // Login handling
@@ -25,19 +34,26 @@ function AdminLogin({ onAuthSuccess }) {
         throw new Error('Unauthorized access');
       }
 
-      // Only call onAuthSuccess for successful login
+      // Call onAuthSuccess with user data
       onAuthSuccess({
         ...userCredential.user,
         ...userData,
+        role: userData.role,
         barangayName: userData.barangayName || 'Unknown'
       });
     } catch (error) {
       console.error('Login error:', error);
       if (error.message === 'Unauthorized access') {
-        setError('Unauthorized access');
-      } else {
+        setError('Unauthorized access. Please contact administrator.');
+      } else if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
         setError('Invalid email or password');
+      } else if (error.code === 'auth/too-many-requests') {
+        setError('Too many login attempts. Please try again later.');
+      } else {
+        setError('An error occurred during login. Please try again.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -68,9 +84,10 @@ function AdminLogin({ onAuthSuccess }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={isLoading}
               className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-lg 
                        focus:ring-1 focus:ring-[#1679AB] focus:border-[#1679AB] 
-                       transition-colors duration-200"
+                       transition-colors duration-200 disabled:bg-gray-100"
             />
           </div>
 
@@ -84,34 +101,40 @@ function AdminLogin({ onAuthSuccess }) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              disabled={isLoading}
               className="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-lg 
                        focus:ring-1 focus:ring-[#1679AB] focus:border-[#1679AB] 
-                       transition-colors duration-200 mb-6"
+                       transition-colors duration-200 mb-6 disabled:bg-gray-100"
             />
           </div>
 
           {error && (
-            <div className="p-3 text-sm border border-red-200 rounded-lg bg-red-50 mt-5">
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="p-3 text-sm border border-red-200 rounded-lg bg-red-50"
+            >
               <div className="flex items-center">
                 <svg className="w-4 h-4 text-red-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
                 <p className="text-red-600">{error}</p>
               </div>
-            </div>
+            </motion.div>
           )}
 
           <button 
             type="submit" 
+            disabled={isLoading}
             className="w-full py-2 bg-gradient-to-r from-[#183369] to-[#1e8dc5] 
                      text-white rounded-xl font-medium text-lg 
                      hover:from-[#1679AB] hover:to-[#1679AB] 
-                     transition-all duration-300"
+                     transition-all duration-300
+                     disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            Login
+            {isLoading ? 'Logging in...' : 'Login'}
           </button>
         </form>
-
       </div>
     </div>
   );

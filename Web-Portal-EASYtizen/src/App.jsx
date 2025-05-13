@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from './firebaseConfig';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminLogin from './pages/AdminLogin';
 import SuperAdminDashboard from './pages/SuperAdminDashboard';
+import LandingPage from './pages/LandingPage';
 import loadingGif from '/src/components/common/img/loadv3.gif'; // Adjust the path as necessary
+import DeveloperTeam from './pages/DeveloperTeam';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -38,16 +41,23 @@ function App() {
     );
   }
 
-  if (!user) {
-    return <AdminLogin onAuthSuccess={setUser} />;
+  // If user is authenticated, show appropriate dashboard based on role
+  if (user) {
+    if (user.role === 'superadmin') {
+      return <SuperAdminDashboard user={user} />;
+    }
+    return <AdminDashboard user={user} />;
   }
 
-  // Check user role and render appropriate dashboard
-  if (user.role === 'superadmin') {
-    return <SuperAdminDashboard user={user} />;
-  }
-
-  return <AdminDashboard user={user} />;
+  // If not authenticated, show routes for public access
+  return (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/admin-login" element={<AdminLogin onAuthSuccess={setUser} />} />
+      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="developer" element={<DeveloperTeam/>} />
+    </Routes>
+  );
 }
 
 export default App;
