@@ -89,10 +89,6 @@ const LandingPage = () => {
             </p>
           </motion.div>
         </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute top-0 -right-4 w-72 h-72 bg-[#1679AB]/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-        <div className="absolute top-0 -left-4 w-72 h-72 bg-[#ff0a0a]/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
       </div>
 
       {/* Stats Section */}
