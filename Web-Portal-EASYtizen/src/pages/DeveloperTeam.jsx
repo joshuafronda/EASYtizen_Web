@@ -83,7 +83,7 @@ const DeveloperTeam = () => {
 
                 <div className="flex space-x-6 pt-2">
                   <a
-                    href="#"
+                    href="https://github.com/joshuafronda"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-[#1679AB] transition-colors"
@@ -91,7 +91,7 @@ const DeveloperTeam = () => {
                     <FiGithub className="w-7 h-7" />
                   </a>
                   <a
-                    href="#"
+                    href="https://www.linkedin.com/in/joshuafronda"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-[#1679AB] transition-colors"
@@ -99,7 +99,7 @@ const DeveloperTeam = () => {
                     <FiLinkedin className="w-7 h-7" />
                   </a>
                   <a
-                    href="mailto:backend@easytizen.com"
+                    href="joshfronda18@gmail.com"
                     className="text-gray-600 hover:text-[#1679AB] transition-colors"
                   >
                     <FiMail className="w-7 h-7" />
