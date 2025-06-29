@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiArrowLeft, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
-import profileImage from '../components/common/img/JOSH1.jpg';
+import profileImage from '../components/common/img/mev2.jpg';
 
 const DeveloperTeam = () => {
   const skills = [
@@ -135,7 +135,7 @@ const DeveloperTeam = () => {
                 <img
                   src={profileImage}
                   alt="Joshua Fronda"
-                  className="w-72 h-72 rounded-full object-cover shadow-lg"
+                  className="w-70 h-80 rounded-full object-cover shadow-lg"
                 />
               </div>
 
