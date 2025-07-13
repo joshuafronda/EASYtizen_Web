@@ -34,7 +34,7 @@ const LandingPage = () => {
     { number: "1000+", label: "Residents Served" },
     { number: "24/7", label: "Service Availability" },
     { number: "100%", label: "Data Security" },
-    { number: "50+", label: "Barangays Trust Us" }
+    { number: "29", label: "Barangays Trust Us" }
   ];
 
   const benefits = [
