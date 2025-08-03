@@ -31,7 +31,7 @@ const LandingPage = () => {
   ];
 
   const stats = [
-    { number: "1000+", label: "Residents Served" },
+    { number: "15000+", label: "Residents Served" },
     { number: "24/7", label: "Service Availability" },
     { number: "100%", label: "Data Security" },
     { number: "29", label: "Barangays Trust Us" }
